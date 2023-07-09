@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title></title>
+</head>
+    <body>
+        {% block body %}
+        {% endblock %}
+        <div>
+            <form action="../edit" method="post">
+                {% csrf_token %}
+                <input type="submit" value="edit page">
+                {% block hidden %}
+                {% endblock %}
+            </form>
+        </div>
+    </body>
+
+</html>

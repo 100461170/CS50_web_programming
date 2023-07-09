@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <title> Edit A Page</title>
+    </head>
+    <body>
+        <h1>Edit a Page</h1>
+        <div>
+            <form action="edit_page" method="post">
+                {% csrf_token %}
+                <div>
+                    <input type="text" name="title" value="{{ title }}">
+                    <input type="hidden" name="old_title" value="{{ title }}">
+                </div>
+                <div>
+                    <label for="markdown_input">Text</label>
+                </div>
+                <div>
+                    <textarea name="markdown_input" id="markdown_input"cols="30" rows="10" >{{ text }}</textarea>
+                </div>
+                <div>
+                    <input type="submit" value="save changes">
+                </div>
+            </form>
+        </div>
+    </body>
+</html>
