@@ -1,0 +1,7 @@
+minuto 21:06
+
+INSERT INTO flights (origin, destination, duration) VALUES ("Shanghai", "Pais", 768);
+INSERT INTO flights (origin, destination, duration) VALUES ("Istambul", "Tokyo", 708);
+INSERT INTO flights (origin, destination, duration) VALUES ("New York", "Pais", 435);
+INSERT INTO flights (origin, destination, duration) VALUES ("Moscow", "Pais", 245);
+INSERT INTO flights (origin, destination, duration) VALUES ("Lima", "New York", 768);
