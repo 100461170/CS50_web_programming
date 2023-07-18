@@ -1,0 +1,22 @@
+{% extends "auctions/layout.html" %}
+
+{% block body %}
+    <h2>Active Listings</h2>
+    {% for item in items %}
+    <div>
+        <ul>
+            <li>
+                <h3>Title: {{item.name}}</h3>
+            </li>
+            <p>Description: {{item.description}}</p>
+            <p>Current price: {{bids.}}</p>  <!--AQUI ME QUEDE!!!!!!!!!-->
+            <img src="{{item.image}}" alt="No image to be shown">
+        
+            {% empty %}
+            <h3>No items</h3>
+        </ul>
+    </div>
+    {% endfor %}
+
+    TODO
+{% endblock %}
