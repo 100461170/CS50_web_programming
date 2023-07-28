@@ -39,5 +39,12 @@
         <hr>
         {% block body %}
         {% endblock %}
+        {% if user.is_authenticated %}
+            <div>
+                <h2>Watchlist</h2>
+                <a href="/watchlists_page">Click to go to the watchlists page</a>
+            </div>
+        {% endif %}
+
     </body>
 </html>

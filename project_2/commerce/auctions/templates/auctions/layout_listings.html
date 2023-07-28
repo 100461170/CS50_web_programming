@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <title>Listings</title>
+    </head>
+    <body>
+        {% block body%}
+        {% endblock %}
+        {% if user.is_authenticated %}
+        <div>
+            {% if watchlist_item is None %}
+                <h3>Watchlist item: </h3>
+                <form action="../add_item_to_watchlist" method="post">
+                    {% csrf_token %}
+                    <input type="submit" value="add item to watchlist">
+                    <input type="hidden" value="{{auction_item.name}}" name="auction_item">
+                </form>
+            {% else %}
+                <h3>Remove from watchlist: </h3>
+                <form action="../remove_from_watchlist" method="post">
+                    {% csrf_token %}
+                    <input type="submit" value="remove item from watchlist">
+                    <input type="hidden" value="{{auction_item.name}}" name="auction_item">
+                </form>
+            {% endif %}
+            {% if auction_item.active%}
+                <h3>Bids: </h3>
+                <form action="../place_bid" method="post">
+                    {% csrf_token %}
+                    <input type="text" name="bid_value">
+                    <input type="hidden" value="{{auction_item.name}}" name="auction_item">
+                    <input type="submit" value="Place bid">
+                </form>
+            {% else %}
+                {% if owner == current_bid.bidding_user %}
+                    <h3>You have won this item!!</h3>
+                {% endif %}
+            {% endif %}
+            {% if owner == auction_item.owner and auction_item.active is True %}
+                <h3>Close Auction:</h3>
+                <form action="../close_auction" method="post">
+                    {% csrf_token %}
+                    <input type="submit" value="Finish the auction for this item">
+                    <input type="hidden" value="{{auction_item.name}}" name="auction_item">
+                </form>
+            {% endif %}
+            <h3>Add comments to this item: </h3>  
+            <form action="../add_comment" method="post">
+                {% csrf_token %}
+                <textarea name="comment" cols="10" rows="2"></textarea>
+                <input type="submit" value="Add comment">
+                <input type="hidden" value="{{auction_item.name}}" name="auction_item">        
+            </form>
+        </div>
+        {% endif %}
+    </body>
+</html>

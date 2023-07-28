@@ -1,0 +1,33 @@
+{% extends "auctions/layout_listings.html" %}
+
+
+{% block body %}
+    <h3>Name: {{auction_item.name}}</h3>
+    <p>Description: {{auction_item.description}}</p>
+    <p>Creation year: {{auction_item.creation_year}}</p>
+    {% if current_bid.amount is not None %}
+        <p>Current bid: {{current_bid.amount}} by: {{current_bid.bidding_user.username}}</p>
+    {% else %}
+        <p>Starting bid: {{auction_item.starting_bid}}</p>
+    {% endif %}
+    <img src="{{auction_item.image}}" alt="No image to be shown">
+    {% if auction_item.category != "" %}
+        <p>Category: {{auction_item.category}}</p>
+    {% else %}
+        <p>No category</p>
+    {% endif %}
+    <h3>Comments</h3>
+    {% for comment in comments %}
+        <Ul>
+            {% if comment.commented_item == auction_item %}
+                <li>{{ comment.commenting_user.username }}  commented: </li>
+                <p>{{ comment.comment }}</p>
+            {% endif %}
+        </Ul>
+        {% empty %}
+            <ul>
+                <li>No comments </li>
+            </ul>
+        {% endfor %}
+
+{% endblock %}

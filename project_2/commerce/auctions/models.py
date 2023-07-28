@@ -13,11 +13,13 @@ class User(AbstractUser):
     
 class AuctionItem(models.Model):
     name = models.CharField(max_length=64, primary_key=True)
+    owner = models.ForeignKey(User, on_delete=models.CASCADE, related_name="owner")
     description = models.TextField(max_length=1000)
     creation_year = models.IntegerField()
     starting_bid = models.PositiveIntegerField()
     image = models.TextField(max_length=1000, blank=True)
     category = models.CharField(blank=True, max_length=32)
+    active = models.BooleanField(default=True)
     
     def __str__(self) -> str:
         return f"name of item: {self.name} dating to: {self.creation_year}."
@@ -26,7 +28,7 @@ class Bids(models.Model):
     bidding_item = models.ForeignKey(AuctionItem, on_delete=models.CASCADE, related_name="bidding_item")
     bidding_user = models.ForeignKey(User, on_delete=models.CASCADE, related_name="bidding_user")
     amount = models.PositiveIntegerField()
-    code = models.CharField(max_length=10, primary_key=True)
+    # code = models.CharField(max_length=10, primary_key=True)
 
     def __str__(self) -> str:
         return f"Bid made on {self.bidding_item} by {self.bidding_user} for {self.amount}"
@@ -38,6 +40,14 @@ class Comments(models.Model):
     
     def __str__(self) -> str:
         return f"{self.commenting_user} commented on {self.commented_item} with the following message: {self.comment}"
+    
+class Watchlist(models.Model):
+    watchlist_item = models.ForeignKey(AuctionItem, on_delete=models.CASCADE, related_name="watchlist_item")
+    watchlist_user = models.ForeignKey(User, on_delete=models.CASCADE, related_name="watchlist_user")
+    def __str__(self) -> str:
+        return f"{self.watchlist_user} added {self.watchlist_item} to his watchlist"
+    
+    
     
 
     
